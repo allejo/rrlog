@@ -11,7 +11,7 @@ namespace allejo\rrlog;
 
 class Filesystem
 {
-    public static function expand_tilde($path)
+    public static function expand_tilde(string $path): string
     {
         if (function_exists('posix_getuid') && strpos($path, '~') !== false)
         {
