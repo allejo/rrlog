@@ -3,6 +3,8 @@
     "description": "A command-line tool for converting BZFlag replays into text formats",
     "type": "project",
     "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
         "allejo/bzflag-networking.php": "^1.0",
         "symfony/console": "^4.3",
         "violet/streaming-json-encoder": "^1.1"
