@@ -1,0 +1,32 @@
+{
+    "name": "allejo/rrlog",
+    "description": "A command-line tool for converting BZFlag replays into text formats",
+    "type": "project",
+    "require": {
+        "allejo/bzflag-networking.php": "^1.0",
+        "symfony/console": "^4.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "allejo\\rrlog\\": "src/allejo/rrlog/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "allejo\\rrlog\\Tests\\": "tests/allejo/rrlog/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vladimir \"allejo\" Jimenez",
+            "email": "me@allejo.io"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    }
+}
