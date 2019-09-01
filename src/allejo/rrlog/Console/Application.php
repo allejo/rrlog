@@ -9,6 +9,14 @@
 
 namespace allejo\rrlog\Console;
 
+use allejo\rrlog\Command\ExportCommand;
+
 class Application extends \Symfony\Component\Console\Application
 {
+    protected function getDefaultCommands()
+    {
+        return array_merge(parent::getDefaultCommands(), [
+            new ExportCommand(),
+        ]);
+    }
 }
