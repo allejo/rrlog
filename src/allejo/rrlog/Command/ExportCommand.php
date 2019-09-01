@@ -39,10 +39,10 @@ class ExportCommand extends Command
     {
         $blacklist = $input->getOption('blacklist');
         $whitelist = $input->getOption('whitelist');
-        $blacklistEmpty = empty($blacklist);
-        $whitelistEmpty = empty($whitelist);
+        $blacklistUsed = !empty($blacklist);
+        $whitelistUsed = !empty($whitelist);
 
-        if ($blacklistEmpty xor $whitelistEmpty)
+        if ($blacklistUsed && $whitelistUsed)
         {
             $output->writeln('You cannot use both a packet whitelist and blacklist.');
 
@@ -79,12 +79,12 @@ class ExportCommand extends Command
 
         try
         {
-            if (!$blacklistEmpty)
+            if ($blacklistUsed)
             {
                 $writer->setBlacklist(explode(',', $blacklist));
             }
 
-            if (!$whitelistEmpty)
+            if ($whitelistUsed)
             {
                 $writer->setWhitelist(explode(',', $whitelist));
             }

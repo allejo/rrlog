@@ -72,14 +72,17 @@ abstract class BaseWriter implements IReplayWriter
 
     public function shouldWritePacket(GamePacket $packet): bool
     {
-        if (!$this->blacklistMode && !$this->whitelistMode)
+        if ($this->blacklistMode)
         {
-            return true;
+            return !isset($this->blacklist[$packet->getRawPacket()->getCode()]);
         }
 
-        $inArray = in_array($packet->getRawPacket()->getCode(), self::$supportedPackets);
+        if ($this->whitelistMode)
+        {
+            return isset($this->whitelist[$packet->getRawPacket()->getCode()]);
+        }
 
-        return $this->whitelistMode ? $inArray : !$inArray;
+        return true;
     }
 
     /**
@@ -101,7 +104,7 @@ abstract class BaseWriter implements IReplayWriter
                 continue;
             }
 
-            $validated[] = $packet;
+            $validated[self::$supportedPackets[$packet]] = $packet;
         }
 
         if (!empty($errors))
