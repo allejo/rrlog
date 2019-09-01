@@ -12,5 +12,5 @@ use allejo\rrlog\Console\Application;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$application = new Application();
+$application = new Application('rrlog', '@package_version@');
 $application->run();
