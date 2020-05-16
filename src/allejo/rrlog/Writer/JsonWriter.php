@@ -13,22 +13,25 @@ use Violet\StreamingJsonEncoder\StreamJsonEncoder;
 
 class JsonWriter extends BaseWriter
 {
+    private function getPacketIterator(): \Generator
+    {
+        foreach ($this->replay->getPacketsIterable() as $packet)
+        {
+            if ($this->shouldWritePacket($packet))
+            {
+                yield $packet;
+            }
+        }
+    }
+
     public function writeTo(string $output): bool
     {
         $json = [
             'header' => $this->replay->getHeader(),
             'startTime' => $this->replay->getStartTime()->format(DATE_ATOM),
             'endTime' => $this->replay->getEndTime()->format(DATE_ATOM),
-            'packets' => [],
+            'packets' => $this->getPacketIterator(),
         ];
-
-        foreach ($this->replay->getPacketsIterable() as $packet)
-        {
-            if ($this->shouldWritePacket($packet))
-            {
-                $json['packets'][] = $packet;
-            }
-        }
 
         $fileHandler = fopen($output, 'wb');
         $encoder = new StreamJsonEncoder(
