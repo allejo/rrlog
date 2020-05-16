@@ -1,5 +1,8 @@
 # rrlog
 
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/allejo/rrlog)](https://github.com/allejo/rrlog/releases/latest)
+[![GitHub license](https://img.shields.io/github/license/allejo/rrlog)](LICENSE.md)
+
 A PHP port of the [rrlog](https://github.com/BZFlag-Dev/bzflag/blob/2.4/misc/rrlog.cxx) project to allow server owners to convert replay files into flat JSON files. This tool is built around the [bzflag-networking.php](https://github.com/allejo/bzflag-networking.php) library that unpacks BZFlag packets into PHP objects.
 
 ## Usage
