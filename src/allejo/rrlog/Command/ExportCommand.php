@@ -81,12 +81,12 @@ class ExportCommand extends Command
         {
             if ($blacklistUsed)
             {
-                $writer->setBlacklist(explode(',', $blacklist));
+                $writer->setBlacklist($this->expandAliases($blacklist));
             }
 
             if ($whitelistUsed)
             {
-                $writer->setWhitelist(explode(',', $whitelist));
+                $writer->setWhitelist($this->expandAliases($whitelist));
             }
         }
         catch (\InvalidArgumentException $e)
@@ -118,5 +118,26 @@ class ExportCommand extends Command
         ];
 
         return $writers[$format] ?? $writers['json'];
+    }
+
+    /**
+     * Expand out aliases for packet names that the core bzflag-networking.php
+     * automatically transforms.
+     *
+     * For example, the core library transforms all `MsgPlayerUpdateSmall`
+     * packets into `MsgPlayerUpdate` automatically.
+     *
+     * @return array A list of packet names that has had aliases resolved
+     */
+    private function expandAliases(string $packetListCSV): array
+    {
+        $packets = explode(',', $packetListCSV);
+
+        if (in_array('MsgPlayerUpdate', $packets) && !in_array('MsgPlayerUpdateSmall', $packets))
+        {
+            $packets[] = 'MsgPlayerUpdateSmall';
+        }
+
+        return $packets;
     }
 }
