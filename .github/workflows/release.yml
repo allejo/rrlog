@@ -37,8 +37,8 @@ jobs:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build PHAR
         run: |
-          ./tools/box build
-          chmox +x rrlog.phar
+          ./tools/box compile
+          chmod +x rrlog.phar
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
