@@ -86,9 +86,6 @@ abstract class BaseWriter implements IReplayWriter
     }
 
     /**
-     * @param array $incoming
-     * @param array $validated
-     *
      * @throws \InvalidArgumentException
      */
     private function validatePackets(array $incoming, array &$validated): void
