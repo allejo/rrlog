@@ -1,3 +1,4 @@
+.box_dump/
 .php_cs.cache
 *.phar
 
