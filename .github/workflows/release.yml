@@ -10,35 +10,35 @@ jobs:
     name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.2'
+          php-version: '7.4'
           extensions: json
           ini-values: phar.readonly=Off
-          tools: phive, php-cs-fixer
+
       - name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+
       - name: Install Dependencies
-        run: composer install --prefer-dist
-      - name: Install Box
-        run: phive install humbug/box --force-accept-unsigned
-        env:
-          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: composer install --prefer-dist --no-progress --no-suggest
+
       - name: Build PHAR
-        run: |
-          ./tools/box compile
-          chmod +x rrlog.phar
+        run: composer build
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -49,6 +49,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+
       - name: Upload Final PHAR
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
