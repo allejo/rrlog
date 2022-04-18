@@ -1,7 +1,6 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in('bin')
     ->in('src')
     ->in('tests')
 ;
@@ -13,10 +12,13 @@ For the full copyright and license information, please view the
 LICENSE.md file that was distributed with this source code.
 HEADER;
 
-return PhpCsFixer\Config::create()
+$config = new PhpCsFixer\Config();
+$config
+    ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
+        '@PhpCsFixer' => true,
         'array_syntax' => ['syntax' => 'short'],
         'blank_line_after_opening_tag' => false,
         'braces' => [
@@ -36,20 +38,21 @@ return PhpCsFixer\Config::create()
         'multiline_whitespace_before_semicolons' => [
             'strategy' => 'new_line_for_chained_calls',
         ],
-        'no_short_echo_tag' => true,
         'no_unused_imports' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
         'no_whitespace_in_blank_line' => true,
         'ordered_imports' => [
-            'sortAlgorithm' => 'alpha',
-            'importsOrder' => [
+            'sort_algorithm' => 'alpha',
+            'imports_order' => [
                 'const',
                 'class',
                 'function',
             ],
         ],
-        'phpdoc_add_missing_param_annotation' => true,
+        'phpdoc_add_missing_param_annotation' => [
+            'only_untyped' => true,
+        ],
         'phpdoc_no_empty_return' => false,
         'phpdoc_order' => true,
         'phpdoc_var_without_name' => false,
@@ -59,6 +62,16 @@ return PhpCsFixer\Config::create()
             'equal' => false,
             'identical' => false,
         ],
+        PhpCsFixerCustomFixers\Fixer\DataProviderNameFixer::name() => [
+            'prefix' => 'dataProvider_test',
+            'suffix' => '',
+        ],
+        PhpCsFixerCustomFixers\Fixer\DeclareAfterOpeningTagFixer::name() => true,
+        PhpCsFixerCustomFixers\Fixer\NoImportFromGlobalNamespaceFixer::name() => true,
+        PhpCsFixerCustomFixers\Fixer\PhpdocSingleLineVarFixer::name() => true,
+        PhpCsFixerCustomFixers\Fixer\PhpdocTypesTrimFixer::name() => true,
     ])
     ->setFinder($finder)
 ;
+
+return $config;

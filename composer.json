@@ -18,7 +18,8 @@
         "bin": "echo 'bin not installed'",
         "post-install-cmd": ["@composer bin all install --ansi"],
         "post-update-cmd": ["@composer bin all update --ansi"],
-        "build": "box compile"
+        "build": "box compile",
+        "fix": "php-cs-fixer fix $(if [ ! -z $CI ]; then echo \"--format=checkstyle\"; fi)"
     },
     "autoload": {
         "psr-4": {

@@ -13,17 +13,6 @@ use Violet\StreamingJsonEncoder\StreamJsonEncoder;
 
 class JsonWriter extends BaseWriter
 {
-    private function getPacketIterator(): \Generator
-    {
-        foreach ($this->replay->getPacketsIterable() as $packet)
-        {
-            if ($this->shouldWritePacket($packet))
-            {
-                yield $packet;
-            }
-        }
-    }
-
     public function writeTo(string $output): bool
     {
         $json = [
@@ -56,5 +45,16 @@ class JsonWriter extends BaseWriter
         fclose($fileHandler);
 
         return $successful;
+    }
+
+    private function getPacketIterator(): \Generator
+    {
+        foreach ($this->replay->getPacketsIterable() as $packet)
+        {
+            if ($this->shouldWritePacket($packet))
+            {
+                yield $packet;
+            }
+        }
     }
 }

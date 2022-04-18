@@ -59,7 +59,7 @@ class ExportCommand extends Command
             return 1;
         }
 
-        /** @var Replay|null $replay */
+        /** @var null|Replay $replay */
         $replay = null;
 
         try
@@ -74,6 +74,7 @@ class ExportCommand extends Command
         }
 
         $writerClass = $this->getWriter($input->getOption('format'));
+
         /** @var IReplayWriter $writer */
         $writer = new $writerClass($replay);
 
@@ -96,7 +97,7 @@ class ExportCommand extends Command
             return 3;
         }
 
-        /** @var string|null $outputFile */
+        /** @var null|string $outputFile */
         $outputFile = $input->getOption('output');
 
         if (!$outputFile)

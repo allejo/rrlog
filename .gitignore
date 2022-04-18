@@ -1,6 +1,7 @@
-.box_dump/
 .php_cs.cache
+.php-cs-fixer.cache
 *.phar
 
+.box_dump/
 /vendor/
 /vendor-bin/**/vendor
