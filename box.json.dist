@@ -1,6 +1,5 @@
 {
     "main": "bin/rrlog",
-    "chmod": "755",
     "compression": "GZ",
     "compactors": [
         "KevinGH\\Box\\Compactor\\Php",
