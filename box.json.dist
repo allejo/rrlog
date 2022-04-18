@@ -1,10 +1,8 @@
 {
     "main": "bin/rrlog",
-    "chmod": "755",
     "compression": "GZ",
     "compactors": [
-        "KevinGH\\Box\\Compactor\\Php",
-        "KevinGH\\Box\\Compactor\\PhpScoper"
+        "KevinGH\\Box\\Compactor\\Php"
     ],
     "datetime": "release-date",
     "git-version": "package_version",
